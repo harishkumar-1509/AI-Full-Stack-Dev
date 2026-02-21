@@ -4,8 +4,14 @@ from dotenv import load_dotenv
 from typing import Optional
 import json
 from pydantic import BaseModel, Field
+import os
 
 load_dotenv()
+
+
+def run_command(cmd: str):
+    result = os.system(cmd)
+    return result
 
 
 def get_weather(city: str):
@@ -20,6 +26,7 @@ def get_weather(city: str):
 
 available_tools = {
     "get_weather": get_weather,
+    "run_command": run_command,
 }
 
 
@@ -36,6 +43,7 @@ Output Format:
 
 Available Tools:
 1. get_weather(city: str) -> str : This tool takes a city name as input and returns the current weather information for that city.
+2. run_command(cmd: str) -> str : This tool takes a linux command as string and executes the command on the user's system and returns the output from that command.
 
 EXAMPLE 1:
 START: Hey, can you solve 2 + 3 * 5 / 10
