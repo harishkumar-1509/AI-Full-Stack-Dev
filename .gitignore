@@ -6,3 +6,6 @@ RAG/rag-venv/
 
 RAG Queue/.env
 RAG Queue/rag_queue_venv/
+RAG Queue/__pycache__/
+RAG Queue/client/__pycache__/
+RAG Queue/queues/__pycache__/
