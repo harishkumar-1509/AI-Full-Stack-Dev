@@ -3,3 +3,6 @@ AI-Agent-Demo/.env
 
 RAG/.env
 RAG/rag-venv/
+
+RAG Queue/.env
+RAG Queue/rag_queue_venv/
