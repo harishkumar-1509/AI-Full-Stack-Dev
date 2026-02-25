@@ -9,3 +9,7 @@ RAG Queue/rag_queue_venv/
 RAG Queue/__pycache__/
 RAG Queue/client/__pycache__/
 RAG Queue/queues/__pycache__/
+
+langchain-llm-app/langchain-llm-venv/
+langchain-llm-app/.env
+langchain-llm-app/__pycache__/
