@@ -118,6 +118,7 @@ def get_response_from_query(db, query, k=4):
         """,
     )
     # StrOutputParser is used to parse the output of the language model into a plain string format.
+    # this is a runnable pipeline ( forming a chain )
     chain = prompt | llm | StrOutputParser()
     return chain.invoke({"question": query, "docs": docs_page_content})
 

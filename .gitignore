@@ -13,3 +13,6 @@ RAG Queue/queues/__pycache__/
 langchain-llm-app/langchain-llm-venv/
 langchain-llm-app/.env
 langchain-llm-app/__pycache__/
+
+image/image-venv
+image/.env
