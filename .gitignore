@@ -16,3 +16,6 @@ langchain-llm-app/__pycache__/
 
 image/image-venv
 image/.env
+
+langraph-learning/langraph-learning-venv
+langraph-learning/.env
