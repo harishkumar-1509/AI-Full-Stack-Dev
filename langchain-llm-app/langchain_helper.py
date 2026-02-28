@@ -21,25 +21,29 @@ load_dotenv()
 
 
 def generate_pet_names(animal_type: str, pet_color: str = "brown") -> str:
+    # Initialize a language model with specific parameters
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.7)
 
+    # Define a prompt template for generating pet names
     prompt_template_name = PromptTemplate(
         input_variables=["animal_type", "pet_color"],
         template="I have a {animal_type} and I need some cool names for it. Suggest me 5 cool names for my pet with the color {pet_color}.",
     )
+    # Create a chain that combines the prompt, language model, and output parser
     name_chain = prompt_template_name | llm | StrOutputParser()
+    # Invoke the chain with the provided inputs and return the result
     return name_chain.invoke({"animal_type": animal_type, "pet_color": pet_color})
 
 
 def langchain_search_agent():
-
+    # Initialize a language model with specific parameters
     llm = ChatOpenAI(
         model="gpt-4o-mini",
         # temperature=0.5,
     )
-
+    # Use DuckDuckGo as the search tool
     search_tool = DuckDuckGoSearchRun()
-
+    # Create an agent with the language model and search tool
     agent = create_agent(
         llm,
         [search_tool],
@@ -49,7 +53,7 @@ def langchain_search_agent():
         requires real-time or factual web information.
         """,
     )
-
+    # Continuously take user queries and provide responses
     while True:
         user_query = input("\nAsk something (type 'exit' to quit): ")
 
@@ -78,6 +82,7 @@ def create_vector_db_from_youtube(video_url: str) -> FAISS:
     docs = text_splitter.split_documents(transcript)
     # print(docs, "\n")
 
+    # Create a FAISS vector database from the document chunks
     db = FAISS.from_documents(
         docs,
         embeddings,
@@ -87,6 +92,8 @@ def create_vector_db_from_youtube(video_url: str) -> FAISS:
 
 def get_response_from_query(db, query, k=4):
     # text-davinci can handle 4097 tokens
+
+    # Perform a similarity search to find the most relevant documents
     docs = db.similarity_search(query, k=k)
     docs_page_content = " ".join([d.page_content for d in docs])
 
@@ -94,6 +101,7 @@ def get_response_from_query(db, query, k=4):
         model="gpt-4o-mini",
         # temperature=0.5,
     )
+    # Define a prompt template for answering questions based on the documents
     prompt = PromptTemplate(
         input_variables=["question", "docs"],
         template="""
@@ -109,7 +117,7 @@ def get_response_from_query(db, query, k=4):
         Your answer should be detailed.
         """,
     )
-
+    # StrOutputParser is used to parse the output of the language model into a plain string format.
     chain = prompt | llm | StrOutputParser()
     return chain.invoke({"question": query, "docs": docs_page_content})
 
