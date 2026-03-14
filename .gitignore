@@ -19,3 +19,6 @@ image/.env
 
 langraph-learning/langraph-learning-venv
 langraph-learning/.env
+
+deploy-ai-agent/deploy-ai-venv
+deploy-ai-agent/.env
